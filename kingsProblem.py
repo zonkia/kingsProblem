@@ -106,7 +106,7 @@ def solve(board, y, x, n, boardSize, y0, x0, solutions):
             if row < y0 and column < x0:
                 continue
             if board[y][x] == 0:
-                if check_position(board, y, x, n):
+                if check_position(board, y, x, boardSize):
                     board[y][x] = 1
                     if solve(board, row, column, n, boardSize, y0, x0, solutions):
                         return board
@@ -125,5 +125,5 @@ def find_solution(solutions, boardSize, numberOfKings):
 
 if __name__ == "__main__":
     solutions = []
-    find_solution(solutions, boardSize=4, numberOfKings=4)
+    find_solution(solutions, boardSize=5, numberOfKings=4)
     print_solutions(get_unique_solutions(solutions))
