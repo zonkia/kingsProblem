@@ -95,20 +95,20 @@ def check_if_solved(board, n):
         return False
 
 
-def solve(board, y, x, n, y0, x0, solutions):
+def solve(board, y, x, n, boardSize, y0, x0, solutions):
     if check_if_solved(board, n):
         solutions.append(convert_to_tuple_board(board))
         # print_board(board)
         return True
 
-    for row in range(n):
-        for column in range(n):
+    for row in range(boardSize):
+        for column in range(boardSize):
             if row < y0 and column < x0:
                 continue
             if board[y][x] == 0:
                 if check_position(board, y, x, n):
                     board[y][x] = 1
-                    if solve(board, row, column, n, y0, x0, solutions):
+                    if solve(board, row, column, n, boardSize, y0, x0, solutions):
                         return board
                     board[y][x] = 0
 
@@ -116,14 +116,14 @@ def solve(board, y, x, n, y0, x0, solutions):
 def find_solution(solutions, boardSize, numberOfKings):
     board = get_clear_board(boardSize)
     n = numberOfKings
-    for row in range(n):
-        for column in range(n):
-            if solve(board, row, column, n, row, column, solutions):
+    for row in range(boardSize):
+        for column in range(boardSize):
+            if solve(board, row, column, n, boardSize, row, column, solutions):
                 board = get_clear_board(boardSize)
                 continue
 
 
 if __name__ == "__main__":
     solutions = []
-    find_solution(solutions, boardSize=5, numberOfKings=5)
+    find_solution(solutions, boardSize=4, numberOfKings=4)
     print_solutions(get_unique_solutions(solutions))
